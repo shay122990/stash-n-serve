@@ -1,0 +1,16 @@
+{
+  "name": "stash-n-serve",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "lodash-es": "^4.18.1",
+    "sass": "^1.99.0"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.16.4",
+    "parcel": "^2.16.4"
+  }
+}
