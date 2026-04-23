@@ -12,17 +12,42 @@
   <body>
     <body>
       <main class="container">
-        <section class="grid">
-          <article class="card">
-            <img
-              src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80"
-              alt="Pasta dish"
-            />
-            <h1>Creamy Herb Pasta</h1>
-            <p>A quick, cozy dinner with garlic, cream, and fresh herbs.</p>
-            <span class="tag tag-accent">Vegetarian</span>
-            <button class="button button-primary">View Recipe</button>
-          </article>
+        <!-- HEADER -->
+        <header class="nav">
+          <div class="logo-search-container">
+            <img src="./imgs/logo.jpg" alt="brand-logo" class="logo" />
+
+            <form class="search" role="search">
+              <input
+                id="input"
+                type="text"
+                placeholder="Search over 1,000,000 recipes..."
+              />
+              <button class="button button-primary" id="search-btn">
+                Search
+              </button>
+            </form>
+          </div>
+
+          <div class="recipe-actions-container">
+            <button class="action-btn">Add Recipe</button>
+            <button class="action-btn">Bookmarks</button>
+          </div>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <section class="layout">
+          <!-- LEFT SIDEBAR -->
+          <aside class="sidebar">
+            <!-- search results go here -->
+          </aside>
+
+          <!-- RIGHT CONTENT -->
+          <div class="content">
+            <p class="empty-state">
+              Start by searching for a recipe or an ingredient. Have fun!
+            </p>
+          </div>
         </section>
       </main>
     </body>
