@@ -1,17 +1,18 @@
 // COLORS
-$color-bg-main: #0b0f14;
-$color-bg-secondary: #111827;
+$color-bg-main: #fef9f3;
+$color-bg-secondary: #e9e0d5;
 
-$color-text-main: #f9fafb;
-$color-text-muted: #9ca3af;
+$color-text-main: #1c1917;
+$color-text-muted: #78716c;
 
 $color-primary: #ff9f1c;
-$color-primary-2: #ffb347;
+$color-primary-2: #fb923c;
 
-$color-accent: #f97316;
-$color-accent-2: #fb923c;
+$color-accent: #facc15;
+$color-accent-2: #fde68a;
+$color-accent-3: #00f5a0;
 
-$color-success: #22c55e;
+$color-success: #16a34a;
 
 // RESET
 * {
@@ -24,9 +25,9 @@ $color-success: #22c55e;
 body {
   min-height: 100vh;
   font-family: system-ui, sans-serif;
-  background: linear-gradient(135deg, #0b0f14, #1f1308, #f97316);
+  background: linear-gradient(135deg, #f97316, #a96423, #ff8204);
   color: $color-text-main;
-  padding: 1rem;
+  padding: 0.2rem;
 }
 
 // ================= MOBILE LAYOUT =============
@@ -35,10 +36,8 @@ body {
 .container {
   max-width: 120rem;
   margin: 0 auto;
-  border-radius: 2.4rem;
+  border-radius: 1rem;
   overflow: hidden;
-  background: rgba(17, 24, 39, 0.72);
-  backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 3rem 8rem rgba(0, 0, 0, 0.45);
 
@@ -54,7 +53,7 @@ body {
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
-  background: rgba(11, 15, 20, 0.65);
+  background: $color-bg-secondary;
   backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 
@@ -83,9 +82,9 @@ body {
     max-width: 20rem;
     border-radius: 100rem;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.08);
+    background: $color-bg-main;
     backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid $color-accent;
 
     &__field {
       flex: 1;
@@ -158,12 +157,14 @@ body {
   }
 }
 
-// ================= LEFT SIDE =================
+// ================= LEFT SIDE - SEARCH RESULTS =================
 .search-results {
-  background: rgba(11, 15, 20, 0.55);
+  background: $color-text-main;
   backdrop-filter: blur(16px);
   padding: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  height: 300px;
+  overflow-y: auto;
+  border-bottom: 1px solid $color-accent;
 
   .preview__img {
     width: 100px;
@@ -171,17 +172,259 @@ body {
   }
 }
 
-// ================= RIGHT SIDE =================
+// ================= RIGHT SIDE - RECIPE RESULTS =================
 .recipe {
-  padding: 2rem;
-  min-height: 40rem;
-  background: rgba(255, 159, 28, 0.12);
-  backdrop-filter: blur(14px);
+  min-height: 500%;
+  padding: 0.4rem;
+  color: $color-text-main;
+  background: $color-text-main;
+  backdrop-filter: blur(50px);
+  overflow: hidden;
+
+  &__fig {
+    position: relative;
+    height: 16rem;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  &__fig::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(2, 6, 23, 0.9), transparent 60%);
+  }
 
   &__img {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
+
+  &__title {
+    position: absolute;
+    z-index: 2;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.2rem;
+
+    font-size: 1.35rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: center;
+    color: #f97316;
+    background: rgba(0, 0, 0, 0.12);
+
+    span {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+
+  &__details {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+  }
+  //  recipe info
+  &__info {
+    color: $color-bg-main;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    width: 100%;
+    gap: 0.45rem;
+    padding: 0.8rem;
+  }
+
+  &__info-icon {
+    width: 0.8rem;
+    height: 0.8rem;
+    fill: #ff9f1c;
+    flex-shrink: 0;
+  }
+
+  &__info-data {
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+
+  &__info-text {
+    font-size: 0.8rem;
+    color: $color-bg-main;
+  }
+
+  // increase/decrease portions
+  &__info-buttons {
+    margin-left: auto;
+    display: flex;
+    gap: 0.25rem;
+
+    .btn--tiny {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.9rem;
+      height: 1.9rem;
+      border-radius: 50%;
+      border: 0;
+      cursor: pointer;
+      color: #fff;
+      background: linear-gradient(135deg, #ff4d6d, #ff9f1c);
+      box-shadow: 0 0 1.5rem rgba(255, 77, 109, 0.35);
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+      &:active {
+        transform: scale(0.94);
+      }
+
+      svg {
+        fill: $color-bg-main;
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
+  }
+
+  // saved -buttons
+  &__user-generated {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border: #00f59f37 1px solid;
+    border-radius: 1rem;
+
+    .btn--round {
+      background-color: transparent;
+      border: none;
+      &:hover {
+        transform: scale(1.1);
+      }
+      &:active {
+        transform: scale(0.94);
+      }
+    }
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      fill: #22d3ee;
+    }
+  }
+
+  // ================= INGREDIENTS LIST =================
+
+  &__ingredients {
+    margin-top: 1rem;
+    padding: 1.2rem;
+    border-radius: 1.4rem;
+    background: rgba(255, 255, 255, 0);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &__ingredient-list {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.75rem;
+    max-height: 14rem;
+    overflow-y: scroll;
+  }
+
+  &__ingredient {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: start;
+    gap: 0.55rem;
+    // padding: 0.75rem;
+    border-radius: 1rem;
+    // background: rgba(2, 6, 23, 0.45);
+  }
+
+  &__icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: #00f5a0;
+    margin-top: 0.15rem;
+  }
+
+  &__quantity {
+    min-width: 1.8rem;
+    font-weight: 800;
+    color: #ff9f1c;
+  }
+
+  &__description {
+    color: #e2e8f0;
+    line-height: 1.4;
+    font-size: 0.9rem;
+  }
+
+  &__unit {
+    font-weight: 800;
+    color: #f8fafc;
+  }
+
+  &__directions {
+    margin-top: 1rem;
+    padding: 1.4rem;
+    text-align: center;
+    border-radius: 1.4rem;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 77, 109, 0.18),
+      rgba(255, 159, 28, 0.14)
+    );
+    .btn--small {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.75rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-decoration: none;
+      color: $color-accent;
+
+      svg {
+        width: 1.2rem;
+        height: 1.2rem;
+        fill: currentColor;
+      }
+    }
+  }
+
+  &__directions-text {
+    margin: 0.8rem 0 1.2rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  &__publisher {
+    color: #fff;
+    font-weight: 800;
+  }
+}
+
+.heading--2 {
+  font-size: 1.15rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08rem;
+  color: #fff;
 }
 
 // ================= RESULTS =================
@@ -192,7 +435,11 @@ body {
 
 // ================= DESKTOP =================
 @media (min-width: 768px) {
+  body {
+    padding: 4rem 0 2rem 0;
+  }
   .container {
+    width: 85%;
     grid-template-columns: 30% 70%;
     grid-template-rows: auto 1fr;
   }
@@ -232,7 +479,7 @@ body {
     border-right: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .recipe {
-    grid-column: 2 / 3;
-  }
+  // .recipe {
+  //   grid-column: 2 / 3;
+  // }
 }
