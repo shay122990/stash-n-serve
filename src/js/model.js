@@ -1,6 +1,7 @@
 // model.js = data layer / API + state
 // Provides support for async/await by converting them into generator-based code for older browsers that don’t natively understand async/await.
 import { async } from "regenerator-runtime";
+import { API_URL } from "./config";
 
 export const state = {
   recipe: {},
@@ -9,7 +10,7 @@ export const state = {
 export const loadRecipe = async function (id) {
   try {
     const res = await fetch(
-      `https://forkify-api.jonas.io/api/v2/recipes/${id}`,
+      `${API_URL}/${id}`,
       // 'https://forkify-api.jonas.io/api/v2/recipes/664c8f193e7aa067e94e8433',
     );
 
@@ -33,6 +34,6 @@ export const loadRecipe = async function (id) {
 
     console.log(state.recipe);
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 };

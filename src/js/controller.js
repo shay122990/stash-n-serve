@@ -1,28 +1,12 @@
 // controller.js = brain / coordinator;
 
-// Polyfill modern JavaScript features for older browsers (e.g., Promises, Array methods)
-import "core-js/stable";
-
-// Polyfill support for async/await syntax in environments that don’t natively support it
-import "regenerator-runtime";
+import "core-js/stable"; // Polyfill modern JavaScript features for older browsers (e.g., Promises, Array methods)
+import "regenerator-runtime"; // Polyfill support for async/await syntax in environments that don’t natively support it
 
 import * as model from "./model.js";
 import recipeView from "./views/recipeView.js";
 
 const recipeContainer = document.querySelector(".recipe");
-
-const timeout = function (s) {
-  return new Promise(function (_, reject) {
-    setTimeout(function () {
-      reject(new Error(`Request took too long! Timeout after ${s} second`));
-    }, s * 1000);
-  });
-};
-
-// NEW API URL (instead of the one shown in the video)
-// https://forkify-api.jonas.io
-
-///////////////////////////////////////
 
 const controlRecipes = async function () {
   try {
@@ -43,12 +27,11 @@ const controlRecipes = async function () {
 
     console.log(recipe);
   } catch (err) {
-    console.log(err);
+    recipeView.renderError();
   }
 };
 
-// controlRecipes();
-
-["hashchange", "load"].forEach((ev) =>
-  window.addEventListener(ev, controlRecipes),
-);
+const init = function () {
+  recipeView.addHandlerRender(controlRecipes);
+};
+init();
