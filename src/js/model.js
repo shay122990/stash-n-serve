@@ -1,23 +1,19 @@
 // model.js = data layer / API + state
 // Provides support for async/await by converting them into generator-based code for older browsers that don’t natively understand async/await.
-import { async } from "regenerator-runtime";
 import { API_URL } from "./config";
+import { getJSON } from "./helpers";
 
 export const state = {
   recipe: {},
+  search: {
+    query: "",
+    results: [],
+  },
 };
 
 export const loadRecipe = async function (id) {
   try {
-    const res = await fetch(
-      `${API_URL}/${id}`,
-      // 'https://forkify-api.jonas.io/api/v2/recipes/664c8f193e7aa067e94e8433',
-    );
-
-    const data = await res.json();
-
-    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
-    console.log(res, data);
+    const data = await getJSON(`${API_URL}/${id}`);
 
     const { recipe } = data.data;
 
@@ -33,6 +29,26 @@ export const loadRecipe = async function (id) {
     };
 
     console.log(state.recipe);
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const loadSearchResults = async function (query) {
+  try {
+    state.search.query = query;
+    const data = await getJSON(`${API_URL}?search=${query}`);
+    console.log(data);
+
+    state.search.results = data.data.recipes.map((rec) => {
+      return {
+        id: rec.id,
+        title: rec.title,
+        publisher: rec.publisher,
+        image: rec.image_url,
+      };
+    });
+    console.log(state.search.results);
   } catch (err) {
     throw err;
   }
