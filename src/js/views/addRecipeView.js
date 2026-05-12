@@ -1,10 +1,10 @@
 import View from "./View.js";
-import icons from "url:../../imgs/icons.svg";
-import fracty from "fracty";
+import icons from "url:../../imgs/icons.svg"; // Parcel 2
 
 class AddRecipeView extends View {
   _parentElement = document.querySelector(".upload");
-  _message = "Recipe was successfully uploaded";
+  _message = "Recipe was successfully uploaded :)";
+
   _window = document.querySelector(".add-recipe-window");
   _overlay = document.querySelector(".overlay");
   _btnOpen = document.querySelector(".nav__btn--add-recipe");
@@ -20,6 +20,7 @@ class AddRecipeView extends View {
     this._overlay.classList.toggle("hidden");
     this._window.classList.toggle("hidden");
   }
+
   _addHandlerShowWindow() {
     this._btnOpen.addEventListener("click", this.toggleWindow.bind(this));
   }
@@ -34,15 +35,11 @@ class AddRecipeView extends View {
       e.preventDefault();
       const dataArr = [...new FormData(this)];
       const data = Object.fromEntries(dataArr);
-      handler(data); // {title: 'TEST', sourceUrl: 'TEST', image: 'TEST', publisher: 'TEST', cookingTime: '23', …}
+      handler(data);
     });
   }
 
-  _generateMarkup() {
-    return `
-       
-    `;
-  }
+  _generateMarkup() {}
 }
 
 export default new AddRecipeView();
